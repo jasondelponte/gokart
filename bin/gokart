@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require 'gokart'
+require 'pathname'
+require 'open3'
+
+
+root = Pathname(File.dirname(__FILE__)).join('../')
+app_name = ARGV[0]
+gokart = Gokart::Environment.new(root, app_name)
+
+unless gokart.app_name_valid?
+  exit(-1)
+end
+
+unless gokart.build_app
+	$stderr.puts "Failed to build the gokart app #{app_name}"
+	exit(-1)
+end
+
+Dir.chdir(app_name)
+
+Open3.popen3('bundle install') do | i, o, e |
+  while (out = o.gets || err = e.gets) 
+  	$stdout.puts out unless out.nil?
+  	$stderr.puts err unless err.nil?
+  end
+end

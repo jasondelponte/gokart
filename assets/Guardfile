@@ -1,0 +1,37 @@
+# More info at https://github.com/guard/guard#readme
+
+load File.dirname(__FILE__) + '/config.rb'
+
+guard 'coffeescript', :input => 'src/www/spec/coffee', :output => 'spec/javascripts', :hide_success => true
+
+guard 'shell' do
+  watch(%r{^src/server/.+\.go$}) do
+    `GOPATH="#{ROOT}" go install #{GO_APP_NAME} 1>&2`
+  end
+end
+
+guard 'rake', :task => 'app:www:compile' do
+  watch(%r{^src/www/app/coffee/.+$})
+  watch(%r{^src/www/app/sass/.+$})
+end
+
+guard 'rake', :task => 'app:www:compile_templates' do
+  watch(%r{^src/www/app/templates/.+$})
+end
+
+guard 'rake', :task => 'app:www:vendor' do
+  watch(%r{^src/www/vendor/.+$})
+end
+
+guard 'rake', :task => 'app:www:images' do
+  watch(%r{^src/www/app/images/.+$})
+end
+
+guard 'rake', :task => 'app:www:partials' do
+  watch(%r{^src/www/app/partials/.+$})
+end
+
+guard 'livereload', :apply_js_live => false do
+  watch(%r{bin/assets/www/javascripts/.+$})
+  watch(%r{spec/javascripts/.+$})
+end

@@ -1,0 +1,5 @@
+require 'rake'
+
+load File.dirname(__FILE__) + '/config.rb'
+
+Dir["#{File.dirname(__FILE__)}/tasks/**/*.rake"].sort.each { |ext| load ext }

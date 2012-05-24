@@ -1,0 +1,24 @@
+source 'http://rubygems.org'
+
+gem 'rack'
+
+group :development do
+  gem 'sass'
+  gem 'coffee-script'
+  gem 'therubyracer'
+  gem 'sprockets'
+  gem 'guard'
+  gem 'guard-coffeescript'
+  gem 'guard-jasmine'
+  gem 'guard-sass'
+  gem 'guard-rake'
+  gem 'guard-livereload'
+  gem 'guard-shell'
+  gem 'jasmine'
+  gem 'yui-compressor'
+  gem 'uglifier'
+  
+  gem 'rb-inotify', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-fchange', :require => false
+end

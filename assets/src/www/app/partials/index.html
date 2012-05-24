@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Narwhal Champion: A Reddit Story</title>
+      <!-- app CSS -->
+      <!--<link rel="stylesheet" href="stylesheets/vendor/jq.ui.css" type="text/css" />-->
+      <link rel="stylesheet" href="stylesheets/application.css" type="text/css" />
+
+      <!-- third party libs -->
+	  <script type="text/javascript" src="javascripts/vendor/touch.js"></script>
+	  <script type="text/javascript" src="javascripts/vendor/jq.mobi.min.js"></script>
+	  <script type="text/javascript" src="javascripts/vendor/jq.web.min.js"></script>
+	  <script type="text/javascript" src="javascripts/vendor/jq.ui.min.js"></script>
+
+	  <script type="text/javascript" src="javascripts/vendor/phonegap-1.1.0.js"></script>
+	  <script type="text/javascript" src="javascripts/vendor/ICanHaz.min.js"></script>
+
+      <!-- application files -->
+      <script type="text/javascript" src="javascripts/libs/mod_loader.js"></script>
+      <script type="text/javascript" src="javascripts/libs/deferred.js"></script>
+      <script type="text/javascript" src="javascripts/libs/3rdparty.js"></script>
+      <script type="text/javascript" src="javascripts/libs/logger.js"></script>
+      <script type="text/javascript" src="javascripts/helpers/properties.js"></script>
+      <script type="text/javascript" src="javascripts/models/comment.js"></script>
+      <script type="text/javascript" src="javascripts/models/post.js"></script>
+      <script type="text/javascript" src="javascripts/models/sub_reddit.js"></script>
+      <script type="text/javascript" src="javascripts/adapters/dummy_data.js"></script>
+      <script type="text/javascript" src="javascripts/adapters/reddit.js"></script>
+      <script type="text/javascript" src="javascripts/widgets/posts.js"></script>
+      <script type="text/javascript" src="javascripts/widgets/post_detail.js"></script>
+      <script type="text/javascript" src="javascripts/widgets/subreddits.js"></script>
+      <script type="text/javascript" src="javascripts/controllers/nav.js"></script>
+      <script type="text/javascript" src="javascripts/controllers/subreddit_posts.js"></script>
+	  <script type="text/javascript" src="javascripts/controllers/app.js"></script>
+	  <script type="text/javascript" src="javascripts/main.js"></script>
+
+      <!-- Templates -->
+      <script id="subReddits" type="text/html">
+          {{#subs}}
+            <li><a href="#subreddit-posts-{{id}}" id="{{id}}">{{name}}</a></li>
+          {{/subs}}
+      </script>
+
+      <script id="posts" type="text/html">
+          {{#posts}}
+            <li class="post-short {{nsfw}}">
+                <h3><a href="javascript:;" onclick="$.ui.loadContent('test-show-post',false,false,'slide')">{{title}}</a></h3>
+                <p class="post">
+                    <span class="score">{{score}}</span> - <span class="num-comments">{{numComments}}</span> comments, to  <span class="subreddit">{{subreddit}}</span>
+                </p>
+            </li>
+          {{/posts}}
+        </div>
+      </script>
+
+      <script id="error_inline" type="text/html">
+          <p class="error-message">{{error}}</p>
+      </script>
+
+	</head>
+  <body>
+    <div id="header">
+        <div class="title"><h2>Loading...</h2></div>
+        <div class="search-bar">
+            <form name="search" action="#search" method="get"><input type='text' name="search-text" value="Search"/></form>
+        </div>
+        <div class="search-button"><p>S</p></div>
+    </div>
+
+    <div id="navbar">
+        <div id="subreddit-wrapper">
+            <ul class="subreddits"></ul>
+        </div>
+    </div>
+
+    <div id="content">
+        <div id="subreddit-posts" class="panel" selected="true">
+            <div id="posts-wrapper">
+                <ul class="posts"></ul>
+            </div>
+        </div>
+        <div id="test-subreddit-posts" class="panel">
+            <p>Test showing moving to a different subreddit page</p>
+        </div>
+        <div id="test-show-post" class="panel">
+            <p>Test showing moving to view a post's content</p>
+        </div>
+    </div>
+  </body>
+</html>

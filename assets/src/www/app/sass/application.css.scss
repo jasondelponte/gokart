@@ -1,0 +1,136 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+html, body, div, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+
+h3 {font-size: 100%;}
+
+$lightBlue: #3bbfce;
+$warning: #f00;
+
+* {
+    -webkit-user-select:none;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.panel {
+    width: 100%;
+}
+
+
+/*********************
+  header bar
+*********************/
+#header {
+    display: -webkit-box;
+    height: 30px;
+    width: 100%;
+
+    color: $lightBlue;
+    background-image:-webkit-gradient(linear, left top, left bottom, from(rgba(16,25,33,1)), to(rgba(14,23,32,1)), color-stop(.5, rgba(27,36,46,1)), color-stop(.5, rgba(14,23,32,1)));
+-webkit-box-shadow:0px 0px 24px rgba(0,0,0,0.8); box-shadow:0px 0px 24px rgba(0,0,0,0.8);
+
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: center;
+    -webkit-box-pack: justify;
+}
+#header .title {
+    -webkit-box-flex: 1;
+    text-align: center;
+}
+#header .search-bar {
+    display: none;
+}
+#header .serach-bar.shown {
+    display: -webkit-box;
+    -webkit-box-flex: 1;
+    width: 100%;
+}
+#header .search-button {
+    padding: 5px;
+}
+
+
+/*********************
+  Nav Bar
+*********************/
+#navbar {
+    width: 100%;
+    display:-webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: center;
+    overflow: hidden;
+    
+    z-index:1000;
+    position:relative;
+}
+#subreddit-wrapper {
+    height: 40px;
+    display: -webkit-box;
+}
+#subreddit-wrapper ul.subreddits {
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: center;
+    padding-left: 0;
+    white-space: nowrap;
+}
+#subreddit-wrapper .subreddits li {
+    display:inline;
+    a {
+        margin-right: 5px;
+        padding: 0 5px;
+
+    }
+}
+
+
+/***************************
+  App Content for main page
+***************************/
+#content{
+    z-index:180;
+    display:block;
+    position:relative;
+} /* Accounts for positioning of the content area, which is everything below the header and above the navbar. */
+
+.panel {
+    z-index:180;
+    width:100%;
+    height:100%;
+    display:none;
+    position:absolute; top:0px; left:-100%;
+    overflow:hidden;
+}
+
+#subreddit-posts {
+    display: -webkit-box;
+}
+
+
+/***************************
+  Formatting for Short posts
+***************************/
+.posts .post-short {
+    display: bock;
+}
+.posts .post-short.nsfw {
+    background-color: $warning;
+}
