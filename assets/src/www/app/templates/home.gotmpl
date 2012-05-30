@@ -5,6 +5,14 @@
 		<p>There are no external dependancies other than Go and ruby (which I expect you already have...).  All dependancies are installed via bundler after the project directory is created.</p>
 	</div>
 	<div class="info-block">
+		<h3>Usage</h3>
+		<p>With ruby (1.9.1 min maybe?) all you need to do is:</p>
+		<p class="code">gem install gokart</p>
+		<p>Once installed to create a new go + sprockets enviornment:</p>
+		<p class="code">gokart APP_NAME</p>
+		<p>This will create a folder of APP_NAME, build the environment, and run bundle install to pull in the gem files that are needed for the environment if you don't already have them.  There are also several rake commands you can use to build/run/deploy the environment. Checkout rake --tasks for a list of them.  In general you'll probably only ever need the app:x commands not app:server:x or app:www:x.</p>
+	</div>
+	<div class="info-block">
 		<h4>Environment Structure</h4>
 		<p>The environment is split into the following sections:</p>
 		<ul>

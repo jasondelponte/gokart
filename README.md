@@ -3,6 +3,20 @@ Combination of tooks which will make developing webapps using go easier. The gok
 There are no external dependancies other than Go and ruby (which I expect you already have...). All dependancies are installed via bundler after the project directory is created.
 
 
+# Usage #
+With ruby (1.9.1 min maybe?) all you need to do is:
+```
+gem install gokart
+```
+
+Once installed to create a new go + sprockets enviornment:
+```
+gokart APP_NAME
+```
+
+This will create a folder of APP_NAME, build the environment, and run bundle install to pull in the gem files that are needed for the environment if you don't already have them.  There are also several rake commands you can use to build/run/deploy the environment. Checkout rake --tasks for a list of them.  In general you'll probably only ever need the app:x commands not app:server:x or app:www:x.
+
+
 # Environment Structure #
 The environment is split into the following sections:
 * bin/ - This is where the application will run from once built, and where all the assets will be compiled to.
