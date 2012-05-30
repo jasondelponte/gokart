@@ -1,9 +1,13 @@
 require 'fileutils'
-require 'coffee_script'
+require 'sprockets'
 require 'sass'
+require 'coffee_script'
 require 'yui/compressor'
 require 'uglifier'
-require 'sprockets'
+
+
+Dir.glob("#{WWW_SRC_APP_PATH}/erb_helpers/**/*.rb").sort.each { |helper| load helper }
+
 
 sprockets = (Sprockets::Environment.new(ROOT) { |env| env.logger = Logger.new(STDOUT) })
 sprockets.append_path WWW_SRC_VENDOR_PATH.join('css').to_s
@@ -11,6 +15,7 @@ sprockets.append_path WWW_SRC_APP_PATH.join('sass').to_s
 sprockets.append_path WWW_SRC_VENDOR_PATH.join('js').to_s
 sprockets.append_path WWW_SRC_APP_PATH.join('coffee').to_s
 sprockets.append_path WWW_SRC_APP_PATH.join('templates').to_s
+
 # Note: Requires JVM for YUI
 sprockets.css_compressor = YUI::CssCompressor.new
 sprockets.js_compressor  = Uglifier.new(mangle: true)
@@ -103,37 +108,45 @@ namespace :app do
 
     desc 'Compiles the asset files into those usable by the browser'
     task :compile  do
-      ASSET_BUNDLES.each do |bundle|
-        assets = sprockets.find_asset(bundle)
+      begin
+        ASSET_BUNDLES.each do |bundle|
+          assets = sprockets.find_asset(bundle)
 
-        # drop all extentions except the first
-        realname = assets.pathname.basename.to_s.split(".")[0..1].join(".")
-        prefix = File.extname(realname).split('.').last
-        outfile = MIN_WWW_PATH.join(prefix, realname)
+          # drop all extentions except the first
+          realname = assets.pathname.basename.to_s.split(".")[0..1].join(".")
+          prefix = File.extname(realname).split('.').last
+          outfile = MIN_WWW_PATH.join(prefix, realname)
 
-        assets.write_to(outfile)
-        assets.write_to("#{outfile}.gz")
+          assets.write_to(outfile)
+          assets.write_to("#{outfile}.gz")
 
-        # For each asset in the bundle write them to the debug output
-        assets.to_a.each do |asset|
-          # strip filename.css.foo.bar.css multiple extensions, but maintain the base directory of the file
-          realname = asset.pathname.basename.to_s.split(".")[0..1].join(".")
-          outPath = DEBUG_WWW_PATH.join(prefix, File.dirname(asset.logical_path))
-          FileUtils::mkdir_p(outPath) if (!FileTest::directory?(outPath))
-          asset.write_to(outPath.join(realname))
+          # For each asset in the bundle write them to the debug output
+          assets.to_a.each do |asset|
+            # strip filename.css.foo.bar.css multiple extensions, but maintain the base directory of the file
+            realname = asset.pathname.basename.to_s.split(".")[0..1].join(".")
+            outPath = DEBUG_WWW_PATH.join(prefix, File.dirname(asset.logical_path))
+            FileUtils::mkdir_p(outPath) if (!FileTest::directory?(outPath))
+            asset.write_to(outPath.join(realname))
+          end
         end
+      rescue Exception => e
+        $stderr.puts "Failed to compile assets, becasue #{e}"
       end
     end
 
     desc 'Compiles the go template files and concats them'
     task :compile_templates  do
-      assets = sprockets.find_asset("application.gotmpl")
+      begin
+        assets = sprockets.find_asset("application.gotmpl")
 
-      # drop all extentions except the first
-      realname = assets.pathname.basename.to_s.split(".")[0..1].join(".")
-      outfile = TMPL_BUILD_PATH.join(realname)
+        # drop all extentions except the first
+        realname = assets.pathname.basename.to_s.split(".")[0..1].join(".")
+        outfile = TMPL_BUILD_PATH.join(realname)
 
-      assets.write_to(outfile)
+        assets.write_to(outfile)
+      rescue Exception => e
+        $stderr.puts "Failed to compile template, becasue #{e}"
+      end
     end
 
     desc 'Builds the existing source'

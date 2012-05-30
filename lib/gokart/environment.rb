@@ -24,6 +24,7 @@ module Gokart
         Pathname(@app_base_path).join('src','www','app','coffee','helpers'),
         Pathname(@app_base_path).join('src','www','app','coffee','libs'),
         Pathname(@app_base_path).join('src','www','app','coffee'),
+        Pathname(@app_base_path).join('src','www','app','erb_helpers'),
         Pathname(@app_base_path).join('src','www','app','images'),
         Pathname(@app_base_path).join('src','www','app','partials'),
         Pathname(@app_base_path).join('src','www','app','sass'),
