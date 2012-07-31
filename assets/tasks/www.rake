@@ -6,10 +6,8 @@ require 'yui/compressor'
 require 'uglifier'
 
 
-Dir.glob("#{WWW_SRC_APP_PATH}/erb_helpers/**/*.rb").sort.each { |helper| load helper }
-
-
 sprockets = (Sprockets::Environment.new(ROOT) { |env| env.logger = Logger.new(STDOUT) })
+@@sprockets = sprockets
 sprockets.append_path WWW_SRC_VENDOR_PATH.join('css').to_s
 sprockets.append_path WWW_SRC_APP_PATH.join('sass').to_s
 sprockets.append_path WWW_SRC_VENDOR_PATH.join('js').to_s
@@ -23,6 +21,9 @@ sprockets.js_compressor  = Uglifier.new(mangle: true)
 # Add the go template mime type/extension so we can specify the directive processors in them
 sprockets.register_mime_type('text/gotmpl', '.gotmpl')
 sprockets.register_processor('text/gotmpl', Sprockets::DirectiveProcessor)
+
+
+Dir.glob("#{WWW_SRC_APP_PATH}/erb_helpers/**/*.rb").sort.each { |helper| load helper }
 
 
 desc 'Iterates over the input directory building a list of coffee files to compile'

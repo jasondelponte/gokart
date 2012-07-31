@@ -10,18 +10,16 @@
 
 {{define "base.header.assets"}}
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-		<script type="text/javascript" src="{{.RootURL}}/assets/js/application.js"></script>
-		<link rel="stylesheet" type="text/css" href="{{.RootURL}}/assets/css/application.css">
+	<% ErbHelper::each_compiled_asset(ASSET_BUNDLES, @@sprockets) do |asset, prefix| %>
+		<%= ErbHelper::asset_link(asset, prefix) %>
+	<% end %>
 {{end}}
 
 {{define "base.header.assets.debug"}}
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-		<script type="text/javascript" src="{{.RootURL}}/assets/js/libs/mod_loader.js"></script>
-		<script type="text/javascript" src="{{.RootURL}}/assets/js/libs/deferred.js"></script>
-		<script type="text/javascript" src="{{.RootURL}}/assets/js/libs/logger.js"></script>
-		<script type="text/javascript" src="{{.RootURL}}/assets/js/helpers/properties.js"></script>
-		<script type="text/javascript" src="{{.RootURL}}/assets/js/main.js"></script>
-		<link rel="stylesheet" type="text/css" href="{{.RootURL}}/assets/css/application.css">
+	<% ErbHelper::each_compiled_debug_asset(ASSET_BUNDLES, @@sprockets) do |asset, prefix| %>
+		<%= ErbHelper::asset_link(asset, prefix) %>
+	<% end %>
 {{end}}
 
 

@@ -1,11 +1,11 @@
 
 module ErbHelper
   def ErbHelper.asset_link(asset, prefix)
-  	if (prefix == 'js')
-  		return "<script type=\"text/javascript\" src=\"{{.RootURL}}/assets/#{asset}\"></script>" 
-  	else (prefix == 'css')
-  		return "<link rel=\"stylesheet\" type=\"text/css\" src=\"{{.RootURL}}/assets/#{asset}\">" 
-  	end
+    if (prefix == 'js')
+      return "<script type=\"text/javascript\" src=\"{{.RootURL}}/assets/#{asset}\"></script>"
+    elsif (prefix == 'css')
+      return "<link rel=\"stylesheet\" type=\"text/css\" src=\"{{.RootURL}}/assets/#{asset}\">"
+    end
   end
 
   def ErbHelper.each_compiled_debug_asset(bundles, sproc_env)
