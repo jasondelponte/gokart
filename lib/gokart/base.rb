@@ -44,9 +44,12 @@ module Gokart
     def copy_files
         Dir.glob(@assets_path.join("**","*")).each() do | inFile |
           begin
-            outFile = inFile.partition(@assets_path.to_s)[2]
-            next if outFile.empty? || FileTest::directory?(inFile)
-            FileUtils::cp inFile, @app_base_path.to_s()+outFile
+            outFile = File.join(@app_base_path.to_s(), inFile.partition(@assets_path.to_s)[2])
+
+            next if FileTest::directory?(inFile)
+            FileUtils::mkdir_p(File.dirname(outFile)) if (!FileTest::directory?(File.dirname(outFile)))
+
+            FileUtils::cp inFile, outFile
           rescue Exception => e
             @logger.fatal "Failed to copy #{outFile} to #{@app_base_path}, because #{e}"
             return false
