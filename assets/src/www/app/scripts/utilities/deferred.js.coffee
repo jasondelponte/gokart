@@ -1,6 +1,4 @@
-modLoader.define 'libs/deferred', (require, exports)=>
-
-  context = @
+define 'utilities/deferred', [], ->
 
   class Promise
     constructor: ->
@@ -11,12 +9,12 @@ modLoader.define 'libs/deferred', (require, exports)=>
 
     _doDone: (data)->
       for done in @_dones
-        done.apply(context, data)
+        done.apply(null, data)
       return
 
     _doFail: (data)->
       for fail in @_fails
-        fail.apply(context, data)
+        fail.apply(null, data)
       return
 
     doFinish: (isResolved, data)->
@@ -85,8 +83,4 @@ modLoader.define 'libs/deferred', (require, exports)=>
       @_finish(_pending.isResolved, _pending.data) if _pending?
       return promise
 
-
-  exports.create = ->
-    return new Deferred()
-
-  return
+  return Deferred

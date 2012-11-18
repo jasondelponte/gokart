@@ -1,4 +1,4 @@
-modLoader.define 'libs/logger', (require,exports)->
+define 'utilities/logger', [], ->
 
   @appLoggerInstance = null
 
@@ -30,11 +30,14 @@ modLoader.define 'libs/logger', (require,exports)->
     @appLoggerInstance = logger()
     return
 
-  exports.getInstance = (name) =>
+  getInstance = (name) =>
     _initLogger() if !@appLoggerInstance
     return @appLoggerInstance
 
-  exports.reset = =>
+  reset = =>
     delete @appLoggerInstance
 
-  return
+  return {
+    getInstance: getInstance
+    reset: reset
+  }

@@ -3,7 +3,7 @@ require 'bundler'
 
 Bundler.require
 
-if !defined? ROOT
+unless defined? ROOT
   ROOT = Pathname(File.dirname(__FILE__))
 
   ASSET_BUNDLES = %w( application.css application.js )

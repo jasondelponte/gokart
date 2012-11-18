@@ -11,7 +11,7 @@ sprockets = (Sprockets::Environment.new(ROOT) { |env| env.logger = Logger.new(ST
 sprockets.append_path WWW_SRC_VENDOR_PATH.join('css').to_s
 sprockets.append_path WWW_SRC_APP_PATH.join('sass').to_s
 sprockets.append_path WWW_SRC_VENDOR_PATH.join('js').to_s
-sprockets.append_path WWW_SRC_APP_PATH.join('coffee').to_s
+sprockets.append_path WWW_SRC_APP_PATH.join('scripts').to_s
 sprockets.append_path WWW_SRC_APP_PATH.join('templates').to_s
 
 # Note: Requires JVM for YUI
@@ -22,33 +22,7 @@ sprockets.js_compressor  = Uglifier.new(mangle: true)
 sprockets.register_mime_type('text/gotmpl', '.gotmpl')
 sprockets.register_processor('text/gotmpl', Sprockets::DirectiveProcessor)
 
-
 Dir.glob("#{WWW_SRC_APP_PATH}/erb_helpers/**/*.rb").sort.each { |helper| load helper }
-
-
-desc 'Iterates over the input directory building a list of coffee files to compile'
-def coffee(inDir, outDir)
-  Dir.glob("#{inDir}/**/*.coffee").each do |file|
-    outFile = file.partition(inDir)[2]
-    next if (outFile.empty?)
-    outFile.sub!(/coffee$/, 'js')
-    coffee_compile(file, outDir+outFile)
-  end
-end
-
-desc 'Compiles the coffee script file and writes it to the out'
-def coffee_compile(inFile, outFile)
-  begin
-    File.delete(outFile) if (FileTest::file?(outFile))
-    FileUtils::mkdir_p(File.dirname(outFile)) if (!FileTest::directory?(File.dirname(outFile)))
-
-    f = File.new(outFile, "w")
-    f.write(CoffeeScript.compile(File.read(inFile)))
-    f.close()
-  rescue
-    puts "Failed to compile #{inFile} to #{outFile}"
-  end
-end
 
 namespace :app do
   namespace :www do
@@ -73,8 +47,35 @@ namespace :app do
       end
     end
 
-    task :spec_coffee do
-      coffee "#{WWW_SRC_SPEC_PATH}/coffee", WWW_SPEC_PATH.to_s
+    task :spec do
+      out_dir = WWW_SPEC_PATH
+      in_dir = WWW_SRC_SPEC_PATH
+
+      Dir.glob(in_dir.join('**', '*')).each do |file|
+        out_file = File.join(out_dir, file.partition(in_dir.to_s)[2])
+        next if (out_file.empty?)
+
+        if FileTest::directory?(file)
+          next
+        end
+
+        FileUtils::mkdir_p(File.dirname(out_file)) if (!FileTest::directory?(File.dirname(out_file)))
+
+        begin
+          if file.match('.coffee$')
+            out_file.sub!(/coffee$/, 'js')
+            File.delete(out_file) if (FileTest::file?(out_file))
+
+            f = File.new(out_file, "w")
+            f.write(CoffeeScript.compile(File.read(file)))
+            f.close()
+          else
+            FileUtils::cp file, out_file
+          end
+        rescue Exception => e
+          $stderr.puts "Failed to compile and copy spec #{file}, because #{e}"
+        end
+      end
     end
 
     task :images do
@@ -131,7 +132,7 @@ namespace :app do
           end
         end
       rescue Exception => e
-        $stderr.puts "Failed to compile assets, becasue #{e}"
+        $stderr.puts "Failed to compile assets, because #{e}"
       end
     end
 
@@ -146,19 +147,19 @@ namespace :app do
 
         assets.write_to(outfile)
       rescue Exception => e
-        $stderr.puts "Failed to compile template, becasue #{e}"
+        $stderr.puts "Failed to compile template, because #{e}"
       end
     end
 
     desc 'Builds the existing source'
-    task :build => [:init,:compile,:compile_templates,:spec_coffee,:images,:partials]
+    task :build => [:init,:compile,:compile_templates,:spec,:images,:partials]
 
     desc 'Cleans the build path'
     task :clean do
       paths = []
       paths << ASSETS_PATH
       paths << TMPL_BUILD_PATH
-      paths << Dir.glob("#{WWW_SPEC_PATH}/*.js")
+      paths << WWW_SPEC_PATH
 
       paths.each do |path|
         begin

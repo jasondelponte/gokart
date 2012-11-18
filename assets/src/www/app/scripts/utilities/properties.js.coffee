@@ -1,4 +1,4 @@
-modLoader.define 'helpers/properties', (require,exports)->
+define 'utilities/properties', [], ->
 
   _buildProp = (cont, propStore, isStatic)->
     return (value) ->
@@ -9,11 +9,13 @@ modLoader.define 'helpers/properties', (require,exports)->
 
       return cont[propStore]
 
-  exports.add = (cont, props)->
+  add = (cont, props)->
     for own prop,rules of props
       propStore = '__auto__'+prop
       cont[propStore] = if rules.value != undefined then rules.value else null
       cont[prop] = _buildProp(cont, propStore, rules.static)
     return
 
-  return
+  return {
+    add: add
+  }

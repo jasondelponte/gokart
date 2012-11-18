@@ -11,9 +11,8 @@
 #   - dist/**/*.js
 #
 src_files:
-    - js/libs/mod_loader.js
-    - js/libs/deferred.js
-    - js/helpers/**/*.js
+    - "js/utilities/require.js"
+    - "js/**/*.js"
 
 # stylesheets
 #
@@ -39,7 +38,6 @@ stylesheets:
 #   - helpers/**/*.js
 #
 helpers:
-    - mocks.js
 
 # spec_files
 #

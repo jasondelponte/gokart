@@ -2,7 +2,7 @@
 
 load File.dirname(__FILE__) + '/config.rb'
 
-guard 'coffeescript', :input => 'src/www/spec/coffee', :output => 'spec/javascripts', :hide_success => true
+guard 'coffeescript', :input => 'src/www/spec', :output => 'spec/javascripts', :hide_success => true
 
 guard 'shell' do
   watch(%r{^src/server/.+\.go$}) do
@@ -11,7 +11,7 @@ guard 'shell' do
 end
 
 guard 'rake', :task => 'app:www:compile' do
-  watch(%r{^src/www/app/coffee/.+$})
+  watch(%r{^src/www/app/scripts/.+$})
   watch(%r{^src/www/app/sass/.+$})
 end
 
@@ -31,7 +31,11 @@ guard 'rake', :task => 'app:www:partials' do
   watch(%r{^src/www/app/partials/.+$})
 end
 
+guard 'rake', :task => 'app:www:spec' do
+  watch(%r{^src/www/spec/.+$})
+end
+
 guard 'livereload', :apply_js_live => false do
-  watch(%r{bin/assets/www/javascripts/.+$})
+  watch(%r{bin/assets/www-debug/js/.+$})
   watch(%r{spec/javascripts/.+$})
 end
