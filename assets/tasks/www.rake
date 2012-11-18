@@ -53,12 +53,8 @@ namespace :app do
 
       Dir.glob(in_dir.join('**', '*')).each do |file|
         out_file = File.join(out_dir, file.partition(in_dir.to_s)[2])
-        next if (out_file.empty?)
 
-        if FileTest::directory?(file)
-          next
-        end
-
+        next if out_file.empty? || FileTest::directory?(file)
         FileUtils::mkdir_p(File.dirname(out_file)) if (!FileTest::directory?(File.dirname(out_file)))
 
         begin
