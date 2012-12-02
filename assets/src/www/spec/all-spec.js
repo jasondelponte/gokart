@@ -1,5 +1,5 @@
 define('spec/all', [
-    'spec/mocks',
+    'spec/helpers/mocks',
     'spec/utilities/test',
     'spec/utilities/deferred',
     'spec/utilities/properties'

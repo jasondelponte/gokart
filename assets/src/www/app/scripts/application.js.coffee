@@ -1,5 +1,10 @@
 #= require utilities/require
-#= require utilities/deferred
-#= require utilities/logger
-#= require utilities/properties
-#= require main
+#= require vendor_wrapper
+#= require underscore
+#= require backbone
+#= require mustache
+#= require_tree ./controllers
+#= require_tree ./models
+#= require_tree ./pages
+#= require_tree ./utilities
+#= require_tree ./views

@@ -1,0 +1,22 @@
+{
+  "templates": "./bin/assets/templates/*.gotmpl",
+  "assets":    "./bin/assets/www-min",
+
+  "urlAssets": "/assets/",
+  "urlRoot":   "/",
+
+  "static": true,
+  "debug": false,
+
+  "http": {
+    "port": 8080,
+    "address": ""
+  },
+
+  "https": {
+    "port": 8081,
+    "address": "",
+    "key": "",
+    "cert": ""
+  }
+}

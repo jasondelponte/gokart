@@ -1,0 +1,22 @@
+{
+  "templates": "./bin/assets/templates/*.gotmpl",
+  "assets":    "./bin/assets/www-debug",
+
+  "urlAssets": "/assets/",
+  "urlRoot":   "/",
+
+  "static": true,
+  "debug": true,
+
+  "http": {
+    "port": 8080,
+    "address": ""
+  },
+
+  "https": {
+    "port": 8081,
+    "address": "",
+    "key": "",
+    "cert": ""
+  }
+}

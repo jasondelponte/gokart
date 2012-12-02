@@ -6,7 +6,7 @@ Bundler.require
 unless defined? ROOT
   ROOT = Pathname(File.dirname(__FILE__))
 
-  ASSET_BUNDLES = %w( application.css application.js )
+  ASSET_BUNDLES = %w( application.css application.js  )
   GO_APP_NAME =   'server'
   GO_BUILD_PATH = ROOT.join('bin')
 

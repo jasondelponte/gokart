@@ -17,7 +17,7 @@ namespace :app do
 
     desc 'Builds the existing source'
     task :build => [:init] do
-      `GOPATH="#{ROOT}" go install #{GO_APP_NAME} 1>&2`
+      `GOPATH="#{ROOT}:$GOPATH" go install #{GO_APP_NAME} 1>&2`
     end
 
     desc 'Cleans the build path'
@@ -36,19 +36,19 @@ namespace :app do
 
     desc 'Runs the test units for the source files'
     task :test => [:build] do
-    	`GOPATH="#{ROOT}" go test #{GO_APP_NAME} 1>&2`
+    	`GOPATH="#{ROOT}:$GOPATH" go test #{GO_APP_NAME} 1>&2`
     end
 
-    desc 'Runs the server, killing old instance if there was one.'
-    task :start, [:port, :static] => [:stop] do |t, args|
-      args.with_defaults(:port => 8080, :static => :true)
-      `./bin/#{GO_APP_NAME} -port=#{args[:port]} -static=#{args[:static]} -tmpl="#{TMPL_BUILD_PATH}" -www="#{MIN_WWW_PATH}"`
+    desc 'Runs the server'
+    task :start, [:config] => [:stop] do |t, args|
+      args.with_defaults(:config => "./config/config-release.json")
+      `./bin/#{GO_APP_NAME} -config="#{args[:config]}"`
     end
 
-    desc 'Runs the server, killing old instance if there was one.'
+    desc 'Runs the server in debug mode'
     task :startdebug, [:port] => [:stop] do |t, args|
-      args.with_defaults(:port => 8080, :static => :true)
-      `./bin/#{GO_APP_NAME} -port=#{args[:port]} -debug=true -static=true -tmpl="#{TMPL_BUILD_PATH}" -www="#{DEBUG_WWW_PATH}"`
+      args.with_defaults(:config => "./config/config-debug.json")
+      `./bin/#{GO_APP_NAME} -config="#{args[:config]}"`
     end
 
     desc 'Stops the server if it was running'

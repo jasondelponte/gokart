@@ -1,4 +1,4 @@
-define 'spec/mocks', [], ->
+define 'spec/helpers/mocks', [], ->
 
   Mocks = {}
 

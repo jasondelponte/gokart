@@ -31,11 +31,9 @@ namespace :app do
       paths << MIN_WWW_PATH.join('js')
       paths << MIN_WWW_PATH.join('css')
       paths << MIN_WWW_PATH.join('images')
-      paths << MIN_WWW_PATH.join('partials')
       paths << DEBUG_WWW_PATH.join('js')
       paths << DEBUG_WWW_PATH.join('css')
       paths << DEBUG_WWW_PATH.join('images')
-      paths << DEBUG_WWW_PATH.join('partials')
       paths << TMPL_BUILD_PATH
 
       paths.each do |path|
@@ -77,16 +75,6 @@ namespace :app do
     task :images do
       from  = WWW_SRC_APP_PATH.join('images')
       to    = DEBUG_WWW_PATH
-      begin
-        FileUtils::cp_r from, to
-      rescue
-        puts "Failed to copy directory #{from} to #{to}"
-      end
-    end
-
-    task :partials do
-      from = WWW_SRC_APP_PATH.join('partials')
-      to   = DEBUG_WWW_PATH
       begin
         FileUtils::cp_r from, to
       rescue
@@ -148,7 +136,7 @@ namespace :app do
     end
 
     desc 'Builds the existing source'
-    task :build => [:init,:compile,:compile_templates,:spec,:images,:partials]
+    task :build => [:init,:compile,:compile_templates,:spec,:images]
 
     desc 'Cleans the build path'
     task :clean do

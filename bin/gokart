@@ -26,3 +26,10 @@ Open3.popen3('bundle install') do | i, o, e |
   	$stderr.puts err unless err.nil?
   end
 end
+
+Open3.popen3('GOPATH=./:$GOPATH go get github.com/jasondelponte/golib') do | i, o, e |
+  while (out = o.gets || err = e.gets) 
+  	$stdout.puts out unless out.nil?
+  	$stderr.puts err unless err.nil?
+  end
+end

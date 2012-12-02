@@ -6,6 +6,7 @@
 		{{if .Debug}}{{template "base.header.assets.debug" .}}{{else}}{{template "base.header.assets" .}}{{end}}
 	</head>
 	<body>
+  {{template "html_templates"}}
 {{end}}
 
 {{define "base.header.assets"}}
@@ -21,7 +22,6 @@
 		<%= ErbHelper::asset_link(asset, prefix) %>
 	<% end %>
 {{end}}
-
 
 {{define "base.footer"}}
 	</body>
