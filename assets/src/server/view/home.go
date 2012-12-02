@@ -19,7 +19,7 @@ func NewHomeView(tmpl *template.Template, cfg *config.Config) *HomeView {
 
 func (v *HomeView) RenderWelcome() ([]byte, error) {
 	common := template.CommonProps{
-		Title:   "WorkoutTracker",
+		Title:   "GoKart",
 		Debug:   v.config.Debug,
 		RootURL: v.config.URLRoot,
 	}

@@ -42,7 +42,7 @@ module Gokart
     end
 
     def copy_files
-        Dir.glob(@assets_path.join("**","*")).each() do | inFile |
+        Dir.glob(@assets_path.join("**","*"), File::FNM_DOTMATCH).each() do | inFile |
           begin
             outFile = File.join(@app_base_path.to_s(), inFile.partition(@assets_path.to_s)[2])
 

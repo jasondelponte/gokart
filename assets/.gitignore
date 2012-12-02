@@ -1,0 +1,5 @@
+bin
+pkg
+spec
+Gemfile.lock
+src/server/server
