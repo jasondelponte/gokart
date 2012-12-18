@@ -5,6 +5,7 @@ import (
 	"github.com/jasondelponte/golib/config"
 	"net"
 	"path"
+	"strings"
 )
 
 type Config struct {
@@ -30,6 +31,10 @@ func LoadConfig(fileName string) (*Config, error) {
 
 	if err := loader.Load(c); err != nil {
 		return nil, err
+	}
+
+	if len(c.URLRoot) == 0 || !strings.HasPrefix(c.URLRoot, "/") {
+		c.URLRoot = "/"
 	}
 
 	c.URLFullAssetsPath = c.buildURLFullAssetsPath()

@@ -1,12 +1,12 @@
 
 module ErbHelper
   def ErbHelper.asset_link(asset, prefix)
-    src = "{{PathJoin .RootURL \"/assets/\" \"#{asset}\"}}"
+    src = "{{PathJoin .Common.RootURL \"/assets/\" \"#{asset}\"}}"
     if (prefix == 'js')
       return "<script type=\"text/javascript\" src=\"#{src}\"></script>"
 
     elsif (prefix == 'css')
-      return "<link rel=\"stylesheet\" type=\"text/css\" src=\"#{src}\">"
+      return "<link rel=\"stylesheet\" type=\"text/css\" href=\"#{src}\">"
     end
   end
 

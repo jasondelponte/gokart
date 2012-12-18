@@ -1,9 +1,13 @@
+//= require github
+//= require utils
+//= require presentation
+//= include_self
+//= require_tree ./
 
-$box_border: #C4A478;
+$box_border : #C4A478;
 $lightBlue: #3bbfce;
 $warning: #f00;
 $base_bg: #fff;
-
 
 html, body, div, h1, h2, h3, h4, p {
     margin: 0;

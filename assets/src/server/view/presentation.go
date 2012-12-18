@@ -5,21 +5,21 @@ import (
 	"server/config"
 )
 
-type HomeView struct {
+type PresentationView struct {
 	template *template.Template
 	config   *config.Config
 }
 
-func NewHomeView(tmpl *template.Template, cfg *config.Config) *HomeView {
-	return &HomeView{
+func NewPresentationView(tmpl *template.Template, cfg *config.Config) *PresentationView {
+	return &PresentationView{
 		template: tmpl,
 		config:   cfg,
 	}
 }
 
-func (v *HomeView) RenderWelcome() ([]byte, error) {
+func (v *PresentationView) RenderPresentation() ([]byte, error) {
 	common := template.CommonProps{
-		Title:   "GoKart",
+		Title:   "GoKart Presentation",
 		Debug:   v.config.Debug,
 		RootURL: v.config.URLRoot,
 	}
@@ -28,5 +28,5 @@ func (v *HomeView) RenderWelcome() ([]byte, error) {
 		v.template.Reload()
 	}
 
-	return v.template.Render("home", common, nil)
+	return v.template.Render("presentation", common, nil)
 }

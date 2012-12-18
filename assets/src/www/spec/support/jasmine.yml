@@ -12,6 +12,8 @@
 #
 src_files:
     - "js/utilities/require.js"
+    - "js/underscore.js"
+    - "js/backbone.js"
     - "js/**/*.js"
 
 # stylesheets
@@ -50,6 +52,7 @@ helpers:
 #   - **/*[sS]pec.js
 #
 spec_files:
+    - "**/*[sS]pec.js"
 
 # src_dir
 #
@@ -60,7 +63,7 @@ spec_files:
 #
 # src_dir: public
 #
-src_dir: bin/assets/www-debug
+src_dir: "bin/assets/www-debug"
 
 # spec_dir
 #
@@ -71,4 +74,4 @@ src_dir: bin/assets/www-debug
 #
 # spec_dir: spec/javascripts
 #
-spec_dir: spec/javascripts
+spec_dir: "spec/javascripts"

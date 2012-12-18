@@ -1,0 +1,188 @@
+{{define "presentation.contents"}}
+    <div class="presentation">
+    </div>
+
+    <script id="presentationContainerTemplate" type="text/html">
+        <div class="pres-slides"></div>
+        <div class="pres-controls">
+            <div class="prev pres-control">Prev</div>
+            <div class="next pres-control">Next</div>
+        </div>
+    </script>
+
+    <script id="slide1IntroTemplate" type="text/html">
+        <div class="slide-content">
+            <h1 class="main-title">gokart</h1>
+            <div class="bottom-right">
+                <div>Jason Del Ponte</div>
+                <div><a href="https://github.com/jasondelponte/gokart">github.com/jasondelponte/gokart</a></div>
+            </div>
+        </div>
+    </script>
+
+    <script id="slide2WhatIsGokartTemplate" type="text/html">
+        <div class="slide-content">
+		    <h1>What is the server?</h1>
+            <ul>
+                <li><p>Ruby gem to create a development environment for Go web applications have structured client scripting</p></li>
+                <li>
+                    <p>Self contained web server</p>
+                    <ul>
+                        <li><p>Serves static and dynamically rendered content</p></li>
+                        <li><p>Support SSL (soon)</p></li>
+                    </ul>
+                </li>
+                <li><p>Integrates with existing Go workspaces without pollution</p></li>
+                <li><p>Easily Customized</p></li>
+                <li><p>Encourages continuous testing</p></li>
+            </ul>
+        </div>
+    </script>
+
+    <script id="slide3DevEnvTemplate" type="text/html">
+        <div class="slide-content">
+            <h1>Development Environment</h1>
+            <ul>
+                <li>
+                    <p>Rake task build commands</p>
+                    <ul>
+                        <li><p>Simple and easy to use tasks for controlling the build environment</p></li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Sprockets</p>
+                    <ul>
+                        <li><p>Pre-compiles all scripts and html templates</p></li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Guard</p>
+                    <ul>
+                        <li><p>Unit testing on file changes</p></li>
+                        <li><p>Rebuild of scripts and html template</p></li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Unit tests</p>
+                    <ul>
+                        <li><p>Javascript Specs with Jasmine</p></li>
+                        <li><p>Go tests</p></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </script>
+
+    <script id="slide4WebServerTemplate" type="text/html">
+        <div class="slide-content">
+            <h1>Web Server</h1>
+            <ul>
+                <li>
+                    <p>Go Server</p>
+                    <ul>
+                        <li><p>Simple initial structure provided</p></li>
+                        <li><p>Easily replaced or build on</p></li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Structure</p>
+                    <ul>
+                        <li><p>Controllers with registered routes</p></li>
+                        <li><p>Views render HTML template content</p></li>
+                    </ul>
+                </li>
+                <li>
+                    <p>HTML Templates</p>
+                    <ul>
+                        <li><p>Templates compiled by sprockets</p></li>
+                        <li><p>Accept model data from view/controllers</p></li>
+                        <li><p>Templates supports ERB helpers during compilation</p></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </script>
+
+    <script id="slide5ClientTemplate" type="text/html">
+        <div class="slide-content">
+            <h1>Client Scripting and Content</h1>
+            <ul>
+                <li>
+                    <p>Scripting</p>
+                    <ul>
+                        <li><p>Supports Javascript, Coffeescript, CSS and SCSS</p></li>
+                        <li><p>Sprockets used for compiling scripts</p></li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Javascript AMD</p>
+                    <ul>
+                        <li><p>Compatible with most of require.js</p></li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Jasmine Unit Testing</p>
+                    <ul>
+                        <li><p>Integrated with guard, and rake tasks</p></li>
+                        <li><p>Test driven development</p></li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Build</p>
+                    <ul>
+                        <li><p>Release: Single compressed JS/CSS files</p></li>
+                        <li><p>Debug: JS/CSS files maintain pathing</p></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </script>
+
+    <script id="slide6ImprovementsTemplate" type="text/html">
+        <div class="slide-content">
+            <h1>Improvements</h1>
+            <ul>
+                <li>
+                    <p>More thought out MVC model</p>
+                    <ul>
+                        <li><p>Both client side and in web server</p></li>
+                        <li><p>HTML templates and javascript template cohesion</p></li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Internationalization support</p>
+                    <ul>
+                        <li><p>Unification between html templates, and client scripts</p></li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Generators</p>
+                    <ul>
+                        <li><p>Models/Views/Controllers</p></li>
+                        <li><p>Boiler plate code</p></li>
+                    </ul>
+                </li>
+                <li>
+                    <p>Logging and Metrics tightly integrated</p>
+                    <ul>
+                        <li><p>Verification</p></li>
+                        <li><p>Understanding scalability</p></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </script>
+
+    <script type="text/javascript">
+        var PresentationPage = require('pages/presentation_page');
+
+        var pres = new PresentationPage({container: ".presentation"});
+        pres.start();
+    </script>
+{{end}}
+
+{{define "presentation"}}
+	{{template "base.header" .}}
+	{{template "presentation.contents" .}}
+	{{template "base.footer"}}
+{{end}}

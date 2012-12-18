@@ -5,6 +5,7 @@ import (
 	"github.com/jasondelponte/golib/net/conn/httpserver"
 	"github.com/jasondelponte/golib/text/html/template"
 	"log"
+	"path"
 	"server/config"
 	"server/controller"
 	"server/view"
@@ -65,6 +66,9 @@ func initServer(cfg *config.Config, tmpl *template.Template) (*httpserver.HTTPSe
 
 	home := controller.NewHomeController(view.NewHomeView(tmpl, cfg), cfg)
 	server.AddHandlerFunc(cfg.URLRoot, home.HandlerFuncs.Welcome)
+
+	pres := controller.NewPresentationController(view.NewPresentationView(tmpl, cfg), cfg)
+	server.AddHandlerFunc(path.Join(cfg.URLRoot, "presentation", "show"), pres.HandlerFuncs.Show)
 
 	static := controller.NewStaticAssetController(cfg)
 	server.AddHandlerFunc(cfg.URLFullAssetsPath, static.HandlerFuncs.StaticAssets)

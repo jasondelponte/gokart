@@ -1,0 +1,38 @@
+
+@mixin background-gradient($from, $to) {
+/* fallback/image non-cover color */
+  background-color: $from;
+
+/* Firefox 3.6+ */
+  background-image: -moz-linear-gradient($from, $to);
+
+/* Safari 4+, Chrome 1+ */
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($from), to($to));
+
+/* Safari 5.1+, Chrome 10+ */
+  background-image: -webkit-linear-gradient($from, $to);
+
+/* Opera 11.10+ */
+  background-image: -o-linear-gradient($from, $to);
+}
+
+@mixin transition-delay($delays...) {
+  transition-delay: $delays;
+  -moz-transition-delay: $delays; /* Firefox 4 */
+  -webkit-transition-delay: $delays; /* Safari and Chrome */
+  -o-transition-delay: $delays; /* Opera */
+}
+
+@mixin transition-property($props...) {
+  transition-property: $props;
+  -moz-transition-property: $props;
+  -webkit-transition-property: $props;
+  -o-transition-property: $props;
+}
+
+@mixin transition-duration($durations...) {
+  transition-duration: $durations;
+  -moz-transition-duration: $durations;
+  -webkit-transition-duration: $durations;
+  -o-transition-duration: $durations;
+}

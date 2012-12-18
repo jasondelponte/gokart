@@ -1,0 +1,66 @@
+@import "utils";
+
+$slideWidth: 1000px;
+
+.presentation {
+  font-size: 20px;
+  width: $slideWidth;
+  margin: 50px auto;
+
+  .pres-slides {
+    .presentation-slide {
+      width: $slideWidth;
+      display: inline-block;
+      vertical-align: top;
+      overflow: hidden;
+
+      @include transition-property(width, opacity);
+      @include transition-delay(0);
+      @include transition-duration(1s, 0.5s);
+
+      &.hidden {
+        @include transition-property(width, opacity);
+        @include transition-delay(0);
+        @include transition-duration(1s, 0.75s);
+        width: 0;
+        opacity: 0;
+      }
+
+    }
+  }
+
+  .slide-content {
+    width: $slideWidth;
+    font-size: 32px;
+
+    h1 {
+      font-size: 58px;
+    }
+
+    .bottom-right {
+      position: absolute;
+      right: 50px;
+      bottom: 50px;
+    }
+  }
+
+  .pres-controls {
+    text-align: center;
+    display: none;
+
+    .pres-control{
+      display: inline-block;
+      vertical-align: middle;
+      cursor: pointer;
+
+      padding: 10px 20px;
+
+      text-shadow: 0.1em 0.1em 0.2em rgba(0,0,0,0.6);
+      @include background-gradient(#EEE, #A1A1A1);
+
+      &:active {
+        @include background-gradient(#A1A1A1, #EEE);
+      }
+    }
+  }
+}

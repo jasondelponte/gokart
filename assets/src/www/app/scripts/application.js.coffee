@@ -3,6 +3,7 @@
 #= require underscore
 #= require backbone
 #= require mustache
+#= require highlight-min
 #= require_tree ./controllers
 #= require_tree ./models
 #= require_tree ./pages

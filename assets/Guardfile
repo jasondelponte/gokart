@@ -27,10 +27,6 @@ guard 'rake', :task => 'app:www:images' do
   watch(%r{^src/www/app/images/.+$})
 end
 
-guard 'rake', :task => 'app:www:partials' do
-  watch(%r{^src/www/app/partials/.+$})
-end
-
 guard 'rake', :task => 'app:www:spec' do
   watch(%r{^src/www/spec/.+$})
 end

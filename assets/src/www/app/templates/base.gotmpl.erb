@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>{{.Title}}</title>
-		{{if .Debug}}{{template "base.header.assets.debug" .}}{{else}}{{template "base.header.assets" .}}{{end}}
+		<title>{{.Common.Title}}</title>
+		{{if .Common.Debug}}{{template "base.header.assets.debug" .}}{{else}}{{template "base.header.assets" .}}{{end}}
 	</head>
 	<body>
   {{template "html_templates"}}

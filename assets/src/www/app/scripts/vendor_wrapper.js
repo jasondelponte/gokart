@@ -9,3 +9,7 @@ define('jquery', [], function jQueryModule() {
 define('backbone', [], function BackboneModule() {
     return Backbone;
 });
+
+define('highlight', [], function HighlightModule() {
+	return hljs;
+});

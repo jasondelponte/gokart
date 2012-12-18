@@ -1,4 +1,9 @@
 {{define "home.contents"}}
+	<header>
+		<ul>
+			<li><a href="{{PathJoin .Common.RootURL "/presentation/" "show"}}">Presentation</a></li>
+		</ul>
+	</header>
 	<div class="info-block">
 		<h3>Go Kart</h3>
 		<p>Combination of tools which will make developing webapps using go easier.  The gokart gem by default combines SASS, Javascript, Coffee Script, Rake, and Sprokets with Go to provide a great development environment.  This environment supports test driven development (TDD) with ruby guard and jasmine.</p>
@@ -40,7 +45,7 @@
 {{end}}
 
 {{define "home"}}
-	{{template "base.header" .Common}}
-	{{template "home.contents" .Contents}}
+	{{template "base.header" .}}
+	{{template "home.contents" .}}
 	{{template "base.footer"}}
 {{end}}
