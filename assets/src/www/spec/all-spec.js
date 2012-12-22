@@ -7,6 +7,5 @@ define('spec/all', [
 
 window.addEventListener('load', function(){
     require('spec/all');
-    console.log('test');
     jasmine.getEnv().execute()
 }, false);

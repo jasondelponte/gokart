@@ -96,6 +96,8 @@ namespace :app do
     task :compile  do
       begin
         ASSET_BUNDLES.each do |bundle|
+          next if bundle == "application.gotmpl" 
+
           assets = sprockets.find_asset(bundle)
 
           # drop all extentions except the first
@@ -125,7 +127,7 @@ namespace :app do
       begin
         assets = sprockets.find_asset("application.gotmpl")
 
-        # drop all extentions except the first
+        # drop all extensions except the first
         realname = assets.pathname.basename.to_s.split(".")[0..1].join(".")
         outfile = TMPL_BUILD_PATH.join(realname)
 

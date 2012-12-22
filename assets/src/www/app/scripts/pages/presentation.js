@@ -11,12 +11,17 @@ define('pages/presentation_page', [
 
         this.view = new PresentationView({
             slides: [
-                'slide1Intro',
-                'slide2WhatIsGokart',
-                'slide3DevEnv',
-                'slide4WebServer',
-                'slide5Client',
-                'slide6Improvements',
+                'Intro',
+                'WhatIsGokart',
+                'WhyCreate',
+                'DevEnv',
+                'WebServer',
+                'HTML',
+                'HTMLGo',
+                'Client',
+                'ClientTesting',
+                'Improvements',
+                'Questions'
             ]
         });
 	}

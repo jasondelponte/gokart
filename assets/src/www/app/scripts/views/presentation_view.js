@@ -14,6 +14,7 @@ define('views/presentation_view', [
         template: $('#presentationContainerTemplate').html(),
 
         events: {
+            'click .pres-slides': '_onNext',
             'click .pres-controls .prev': '_onPrev',
             'click .pres-controls .next': '_onNext'
         },

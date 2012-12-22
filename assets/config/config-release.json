@@ -3,14 +3,14 @@
   "assets":    "./bin/assets/www-min",
 
   "urlAssets": "/assets/",
-  "urlRoot":   "/",
+  "urlRoot":   "/goapps/gokart/",
 
-  "static": true,
+  "static": false,
   "debug": false,
 
   "http": {
-    "port": 8080,
-    "address": ""
+    "port": 8020,
+    "address": "127.0.0.1"
   },
 
   "https": {

@@ -5,7 +5,7 @@ $slideWidth: 1000px;
 .presentation {
   font-size: 20px;
   width: $slideWidth;
-  margin: 50px auto;
+  margin: 10px auto;
 
   .pres-slides {
     .presentation-slide {
@@ -35,6 +35,11 @@ $slideWidth: 1000px;
 
     h1 {
       font-size: 58px;
+      border-bottom: 2px solid;
+    }
+
+    pre {
+      font-size: 16px;
     }
 
     .bottom-right {
@@ -42,11 +47,15 @@ $slideWidth: 1000px;
       right: 50px;
       bottom: 50px;
     }
+
+    .main-title {
+      font-size: 78px;
+    }
   }
 
   .pres-controls {
     text-align: center;
-    display: none;
+    /*display: none;*/
 
     .pres-control{
       display: inline-block;

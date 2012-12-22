@@ -10,7 +10,7 @@
         </div>
     </script>
 
-    <script id="slide1IntroTemplate" type="text/html">
+    <script id="IntroTemplate" type="text/html">
         <div class="slide-content">
             <h1 class="main-title">gokart</h1>
             <div class="bottom-right">
@@ -20,16 +20,16 @@
         </div>
     </script>
 
-    <script id="slide2WhatIsGokartTemplate" type="text/html">
+    <script id="WhatIsGokartTemplate" type="text/html">
         <div class="slide-content">
-		    <h1>What is the server?</h1>
+		    <h1>What is gokart?</h1>
             <ul>
                 <li><p>Ruby gem to create a development environment for Go web applications have structured client scripting</p></li>
                 <li>
                     <p>Self contained web server</p>
                     <ul>
                         <li><p>Serves static and dynamically rendered content</p></li>
-                        <li><p>Support SSL (soon)</p></li>
+                        <li><p>Supports SSL(soon)</p></li>
                     </ul>
                 </li>
                 <li><p>Integrates with existing Go workspaces without pollution</p></li>
@@ -39,7 +39,34 @@
         </div>
     </script>
 
-    <script id="slide3DevEnvTemplate" type="text/html">
+    <script id="WhyCreateTemplate" type="text/html">
+        <div class="slide-content">
+            <h1>Why Create gokart?</h1>
+            <ul>
+                <li><p>Integration between go web app and web scripting</p></li>
+                <li><p>Single development environment</p></li>
+                <li><p>Simplified build/release commands, examples:</p></li>
+            </ul>
+            <pre><code class="Text">
+rake app:build # To do a complete build of the web app
+rake app:server:test # To run the go servers unit tests
+rake app:guard # Start guard watching for local file changes
+            </code></pre>
+        </div>
+    </script>
+
+    <script id="Challenges" type="text/html">
+        <div class="slide-content">
+            <h1>Challenges</h1>
+            <ul>
+                <li><p>Creating environment from a gem</p></li>
+                <li><p>Using Sprockets in Rake tasks</p></li>
+                <li><p>Integration between </p></li>
+            </ul>
+        </div>
+    </script>
+
+    <script id="DevEnvTemplate" type="text/html">
         <div class="slide-content">
             <h1>Development Environment</h1>
             <ul>
@@ -73,7 +100,7 @@
         </div>
     </script>
 
-    <script id="slide4WebServerTemplate" type="text/html">
+    <script id="WebServerTemplate" type="text/html">
         <div class="slide-content">
             <h1>Web Server</h1>
             <ul>
@@ -103,7 +130,68 @@
         </div>
     </script>
 
-    <script id="slide5ClientTemplate" type="text/html">
+    <script id="HTMLTemplate" type="text/html">
+        <div class="slide-content">
+            <h1>HTML Templates</h1>
+            <ul>
+                <li><p>Templates compiled by sprockets into single file</p></li>
+                <li><p>Accept models from controller when rendered</p></li>
+                <li><p>Templates used with ERB helpers during compilation</p></li>
+            </ul>
+            <pre><code class="ruby">
+erb_helpers.rb:
+module ErbHelper
+    def ErbHelper.asset_link(asset, prefix)
+        src = "&#123;&#123;PathJoin .Common.RootURL \"/assets/\" \"#{asset}\"&#125;&#125;"
+        if (prefix == 'js')
+            return "&lt;script type=\"text/javascript\" src=\"#{src}\"&gt;&lt;/script&gt;"
+
+        elsif (prefix == 'css')
+            return "&lt;link rel=\"stylesheet\" type=\"text/css\" href=\"#{src}\"&gt;"
+        end
+    end
+    ...
+end
+        </div>
+    </script>
+<script id="HTMLGoTemplate" type="text/html">
+        <div class="slide-content">
+            <h1>HTML Templates</h1>
+            <pre><code class="html">
+&#123;&#123;define "base.header"&#125;&#125;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;&#123;&#123;.Common.Title&#125;&#125;&lt;/title&gt;
+&#123;&#123;if .Common.Debug&#125;&#125;&#123;&#123;template "base.header.assets.debug" .&#125;&#125;&#123;&#123;else&#125;&#125;&#123;&#123;template "base.header.assets" .&#125;&#125;&#123;&#123;end&#125;&#125;
+&lt;/head&gt;
+&lt;body&gt;
+&#123;&#123;template "html_templates"&#125;&#125;
+&#123;&#123;end&#125;&#125;
+
+&#123;&#123;define "base.header.assets"&#125;&#125;
+&lt;script type="text/javascript" src="ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"&gt;&lt;/script&gt;
+&lt;% ErbHelper::each_compiled_asset(ASSET_BUNDLES, @@sprockets) do |asset, prefix| %&gt;
+&lt;%= ErbHelper::asset_link(asset, prefix) %&gt;
+&lt;% end %&gt;
+&#123;&#123;end&#125;&#125;
+
+&#123;&#123;define "base.header.assets.debug"&#125;&#125;
+&lt;script type="text/javascript" src="ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"&gt;&lt;/script&gt;
+&lt;% ErbHelper::each_compiled_debug_asset(ASSET_BUNDLES, @@sprockets) do |asset, prefix| %&gt;
+&lt;%= ErbHelper::asset_link(asset, prefix) %&gt;
+&lt;% end %&gt;
+&#123;&#123;end&#125;&#125;
+
+&#123;&#123;define "base.footer"&#125;&#125;
+&lt;/body&gt;
+&lt;/html&gt;
+&#123;&#123;end&#125;&#125;
+            </code></pre>
+        </div>
+    </script>
+
+    <script id="ClientTemplate" type="text/html">
         <div class="slide-content">
             <h1>Client Scripting and Content</h1>
             <ul>
@@ -120,25 +208,47 @@
                         <li><p>Compatible with most of require.js</p></li>
                     </ul>
                 </li>
+            </ul>
+            <pre><code class="javascript">
+define('GokartPres/utilities/logger', [
+    'deferred',
+], function LoggerModule(Deferred) {
+   . . .
+   return Logger;
+});
+            </code></pre>
+        </div>
+    </script>
+
+    <script id="ClientTestingTemplate" type="text/html">
+        <div class="slide-content">
+            <h1>Client Scripting Unit Tests</h1>
+            <ul>
                 <li>
-                    <p>Jasmine Unit Testing</p>
+                    <p>Jasmine</p>
                     <ul>
                         <li><p>Integrated with guard, and rake tasks</p></li>
                         <li><p>Test driven development</p></li>
                     </ul>
                 </li>
-                <li>
-                    <p>Build</p>
-                    <ul>
-                        <li><p>Release: Single compressed JS/CSS files</p></li>
-                        <li><p>Debug: JS/CSS files maintain pathing</p></li>
-                    </ul>
-                </li>
             </ul>
+            <pre><code class="javascript">
+define('spec/all', [
+    'spec/helpers/mocks',
+    'spec/utilities/test',
+    'spec/utilities/deferred',
+    'spec/utilities/properties'
+], function(){});
+
+window.addEventListener('load', function(){
+    require('spec/all');
+    jasmine.getEnv().execute()
+}, false);
+            </code></pre>
         </div>
     </script>
 
-    <script id="slide6ImprovementsTemplate" type="text/html">
+    <script id="ImprovementsTemplate" type="text/html">
         <div class="slide-content">
             <h1>Improvements</h1>
             <ul>
@@ -169,6 +279,17 @@
                         <li><p>Understanding scalability</p></li>
                     </ul>
                 </li>
+            </ul>
+        </div>
+    </script>
+
+    <script id="QuestionsTemplate" type="text/html">
+        <div class="slide-content">
+            <h1>Questions?</h1>
+            <ul>
+                <li><p>Github: github.com/jasondelponte/gokart</p></li>
+                <li><p>Ruby Gems: rubygems.org/gems/gokart</p></li>
+                <li><p>This presentation: jasondelponte.com/goapps/gokart</p></li>
             </ul>
         </div>
     </script>
