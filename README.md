@@ -1,3 +1,5 @@
+[![baby-gopher](https://raw2.github.com/drnic/babygopher-site/gh-pages/images/babygopher-badge.png)](http://www.babygopher.org)
+
 # Go Kart #
 Combination of tools which will make developing webapps using go easier. The gokart gem by default combines SASS, Coffee Script, Rake, and Sprockets with Go to provide a great development environment. This environment supports test driven development (TDD) with ruby guard and jasmine.
 There are no external dependencies other than Go and ruby (which I expect you already have...). All dependencies are installed via bundler after the project directory is created.
